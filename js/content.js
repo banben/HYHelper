@@ -1,63 +1,52 @@
 window.addEventListener("load", myMain, false);
 
-var interval;
-
-function check() {
-  var shengyu = document.querySelector('.v-button');
-  console.log('check');
-  if (shengyu.className === 'v-button' && shengyu.innerText.indexOf('确认挂号') === -1) {
-    clearInterval(interval);
-    execute();
-  }
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-function checkConfirmPage() {
-  if (document.URL.indexOf('submission') >= 0) {
-    clearInterval(interval)
-    document.querySelector('.v-card.clickable.item').click();
-    document.querySelectorAll('input')[2].value = '110842486009';
-    setTimeout(function (){
-
-      // Something you want delayed.      
-      document.querySelector('.sendText.v-link.highlight.clickable.selected').click()
-      document.querySelectorAll('input')[1].focus();
-      waitVerifyCode();
-    
-    }, 1000);
-    
-  }
-}
-
-function checkVerifyCode() {
-  if (document.querySelectorAll('input')[1].value.length === 6) {
-    clearInterval(interval);
-    document.querySelector('.v-button').click();
-  }
-}
-
-function waitVerifyCode() {
-  interval = setInterval(checkVerifyCode, 1000);
-}
-
-function waitConfirmPage() {
-  interval = setInterval(checkConfirmPage, 1000);
-}
-
-function execute() {
-  var shengyu = document.querySelector('.v-button');
-  shengyu.click();
-  waitConfirmPage();
-}
-
-function myMain(evt) {
-
+async function myMain(evt) {
   // DO YOUR STUFF HERE.
   console.log("114 helper running!");
   console.log(window.location.href);
-  console.log(document.URL);
 
-  if (document.URL == "http://www.114yygh.com/hospital/142/0/200039568/source") {
-    interval = setInterval(check, 1000);
+  let people;
+  while (!people) {
+    await sleep(200);
+    people = document.querySelector('.v-card.clickable.item');
+  }
+  people.click();
+
+  let verify;
+  while (!verify) {
+    await sleep(200);
+    verify = document.querySelector('.sendText.v-link.highlight.clickable.selected');
+  }
+  verify.click();
+
+  let card;
+  while (!card) {
+    await sleep(200);
+    card = $('*[placeholder="请填写12位北京社保卡条码号"]');
+  }
+  card.val('110842486009');
+
+  let sms;
+  while (!sms) {
+    await sleep(200);
+    sms = $('*[placeholder="请输入短信验证码"]');
   }
 
+  let smsLength = 0;
+  while (smsLength !== 6) {
+    await sleep(200);
+    smsLength = sms.val().length;
+  }
+
+  let confirm;
+  while (!confirm) {
+    await sleep(200);
+    confirm = $('div.v-button:contains("确认挂号")');
+  }
+  confirm.click();
+  console.log(confirm);
 }

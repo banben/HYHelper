@@ -27,7 +27,7 @@
     ],
      "content_scripts": [
         {
-            "matches": ["http://www.114yygh.com/*"],
+            "matches": ["http://www.114yygh.com/hospital/*/submission*"],
             "js": ["js/jquery-3.1.1.min.js","js/content.js"],
             "run_at":"document_end",
             "exclude_globs": [ ],  
