@@ -12,6 +12,8 @@ async function myMain(evt) {
   // DO YOUR STUFF HERE.
   console.log("HY helper running!");
 
+  let mapping = {}
+
   let count = 0;
   while (true) {
     count++;
@@ -55,13 +57,21 @@ async function myMain(evt) {
 
     if (lastMsg.length && input.length && send.length) {
       if (lastMsgSendGift.length && lastMsgName.length && lastMsgSendGiftType.length) {
-        input.val(`感谢${lastMsgName.text()}赠送的${lastMsgSendGiftType.attr('alt')}`);
-        input.focus();
-        chrome.runtime.sendMessage({
-          send: true
-        }, res => {
-          console.log(`发送弹幕 from tab: ${res}`);
-        })
+        if (!(lastMsgSendGiftType.attr('alt') in mapping)) {
+          input.val(`感谢${lastMsgName.text()}赠送的${lastMsgSendGiftType.attr('alt')}`);
+          input.focus();
+          chrome.runtime.sendMessage({
+            send: true
+          }, res => {
+            console.log(`发送弹幕 from tab: ${res}`);
+          })
+
+          mapping[lastMsgSendGiftType.attr('alt')] = true;
+        } else {
+          if (count % 30 == 0) {
+            delete mapping[lastMsgSendGiftType.attr('alt')];
+          }
+        }       
       } else if (nobleEnter.length && input.length && send.length) {
         // let rnd = getRndInteger(0, 2);
         // switch(rnd) {
