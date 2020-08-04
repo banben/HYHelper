@@ -23,7 +23,8 @@
         "tabs",
         "http://*/*",
         "https://*/*",
-        "storage"
+        "storage",
+        "debugger"
     ],
      "content_scripts": [
         {

@@ -23,7 +23,7 @@ async function myMain(evt) {
     let lastMsgSendGiftType = lastMsgSendGift.find('img');
     let send = $('#msg_send_bt');
     let nobleEnter = lastMsg.find('.msg-nobleEnter');
-    if (count % 60 == 0 && input.length && send.length) {
+    if (count % 60 == 1 && input.length && send.length) {
       let rnd = getRndInteger(0, 6);
       switch(rnd) {
         case 0:
@@ -42,17 +42,25 @@ async function myMain(evt) {
           input.val('新来的小伙伴动动小手，关注主播不迷路！');
           break;
         case 5:
-          input.val('我裂开了');
+          input.val('要在我家打地铺吗？长期床位哦');
       }
-      input.trigger('change');
-      send.click();
+      input.focus();
+      chrome.runtime.sendMessage({
+        send: true
+      }, res => {
+
+      })
     }
 
     if (lastMsg.length && input.length && send.length) {
       if (lastMsgSendGift.length && lastMsgName.length && lastMsgSendGiftType.length) {
         input.val(`感谢${lastMsgName.text()}赠送的${lastMsgSendGiftType.attr('alt')}`);
-        input.trigger('change');
-        send.click();
+        input.focus();
+        chrome.runtime.sendMessage({
+          send: true
+        }, res => {
+
+        })
       } else if (nobleEnter.length && input.length && send.length) {
         let rnd = getRndInteger(0, 2);
         switch(rnd) {
@@ -62,8 +70,12 @@ async function myMain(evt) {
           case 1:
             input.val(`老板${lastMsgName.text()}好久不见`);
         }
-        input.trigger('change');
-        send.click();
+        input.focus();
+        chrome.runtime.sendMessage({
+          send: true
+        }, res => {
+
+        })
       }
     }
   }
