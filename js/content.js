@@ -63,20 +63,20 @@ async function myMain(evt) {
           console.log(`发送弹幕 from tab: ${res}`);
         })
       } else if (nobleEnter.length && input.length && send.length) {
-        let rnd = getRndInteger(0, 2);
-        switch(rnd) {
-          case 0:
-            input.val(`欢迎${lastMsgName.text()}驾临直播间`);
-            break;
-          case 1:
-            input.val(`老板${lastMsgName.text()}好久不见`);
-        }
-        input.focus();
-        chrome.runtime.sendMessage({
-          send: true
-        }, res => {
-          console.log(`发送弹幕 from tab: ${res}`);
-        })
+        // let rnd = getRndInteger(0, 2);
+        // switch(rnd) {
+        //   case 0:
+        //     input.val(`欢迎${lastMsgName.text()}驾临直播间`);
+        //     break;
+        //   case 1:
+        //     input.val(`老板${lastMsgName.text()}好久不见`);
+        // }
+        // input.focus();
+        // chrome.runtime.sendMessage({
+        //   send: true
+        // }, res => {
+        //   console.log(`发送弹幕 from tab: ${res}`);
+        // })
       }
     }
   }
