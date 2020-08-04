@@ -36,7 +36,7 @@ async function myMain(evt) {
           input.val('新来的小伙伴点点关注');   
           break;
         case 3:
-          input.val('户粮刷起来');
+          input.val('虎粮刷起来');
           break;
         case 4:
           input.val('新来的小伙伴动动小手，关注主播不迷路！');
