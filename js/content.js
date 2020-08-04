@@ -48,7 +48,7 @@ async function myMain(evt) {
       chrome.runtime.sendMessage({
         send: true
       }, res => {
-
+        console.log(`发送弹幕 from tab: ${res}`);
       })
     }
 
@@ -59,7 +59,7 @@ async function myMain(evt) {
         chrome.runtime.sendMessage({
           send: true
         }, res => {
-
+          console.log(`发送弹幕 from tab: ${res}`);
         })
       } else if (nobleEnter.length && input.length && send.length) {
         let rnd = getRndInteger(0, 2);
@@ -74,7 +74,7 @@ async function myMain(evt) {
         chrome.runtime.sendMessage({
           send: true
         }, res => {
-
+          console.log(`发送弹幕 from tab: ${res}`);
         })
       }
     }
