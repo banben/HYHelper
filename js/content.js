@@ -44,14 +44,14 @@ async function myMain(evt) {
         case 5:
           input.val('我裂开了');
       }
-      send.trigger('change');
+      input.trigger('change');
       send.click();
     }
 
     if (lastMsg.length && input.length && send.length) {
       if (lastMsgSendGift.length && lastMsgName.length && lastMsgSendGiftType.length) {
         input.val(`感谢${lastMsgName.text()}赠送的${lastMsgSendGiftType.attr('alt')}`);
-        send.trigger('change');
+        input.trigger('change');
         send.click();
       } else if (nobleEnter.length && input.length && send.length) {
         let rnd = getRndInteger(0, 2);
@@ -62,7 +62,7 @@ async function myMain(evt) {
           case 1:
             input.val(`老板${lastMsgName.text()}好久不见`);
         }
-        send.trigger('change');
+        input.trigger('change');
         send.click();
       }
     }
