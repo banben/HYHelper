@@ -50,6 +50,7 @@ async function myMain(evt) {
       }, res => {
         console.log(`发送弹幕 from tab: ${res}`);
       })
+      continue;
     }
 
     if (lastMsg.length && input.length && send.length) {
