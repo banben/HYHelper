@@ -42,7 +42,7 @@ async function myMain(evt) {
           input.val('新来的小伙伴动动小手，关注主播不迷路！');
           break;
         case 5:
-          input.val('要在我家打地铺吗？长期床位哦');
+          input.val('新进来的朋友走个订阅，卡个牌牌~');
       }
       input.focus();
       chrome.runtime.sendMessage({
