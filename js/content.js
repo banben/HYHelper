@@ -4,49 +4,67 @@ function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+function getRndInteger(min, max) {
+  return Math.floor(Math.random() * (max - min) ) + min;
+}
+
 async function myMain(evt) {
   // DO YOUR STUFF HERE.
-  console.log("114 helper running!");
-  console.log(window.location.href);
+  console.log("HY helper running!");
 
-  let people;
-  while (!people) {
-    await sleep(200);
-    people = document.querySelector('.v-card.clickable.item');
-  }
-  people.click();
+  let count = 0;
+  while (true) {
+    count++;
+    await sleep(5000);
+    let input = $('#pub_msg_input');
+    let lastMsg = $('#chat-room__list li').last();
+    let lastMsgName = lastMsg.find('.name.J_userMenu');
+    let lastMsgSendGift = lastMsg.find('.send-gift');
+    let lastMsgSendGiftType = lastMsgSendGift.find('img');
+    let send = $('#msg_send_bt');
+    let nobleEnter = lastMsg.find('.msg-nobleEnter');
+    if (count % 60 == 0 && input.length && send.length) {
+      let rnd = getRndInteger(0, 6);
+      switch(rnd) {
+        case 0:
+          input.val('666');
+          break;
+        case 1:
+          input.val('这也太厉害了吧');
+          break;
+        case 2:
+          input.val('新来的小伙伴点点关注');   
+          break;
+        case 3:
+          input.val('户粮刷起来');
+          break;
+        case 4:
+          input.val('新来的小伙伴动动小手，关注主播不迷路！');
+          break;
+        case 5:
+          input.val('我裂开了');
+      }
+      send.trigger('change');
+      send.click();
+    }
 
-  let verify;
-  while (!verify) {
-    await sleep(200);
-    verify = document.querySelector('.sendText.v-link.highlight.clickable.selected');
+    if (lastMsg.length && input.length && send.length) {
+      if (lastMsgSendGift.length && lastMsgName.length && lastMsgSendGiftType.length) {
+        input.val(`感谢${lastMsgName.text()}赠送的${lastMsgSendGiftType.attr('alt')}`);
+        send.trigger('change');
+        send.click();
+      } else if (nobleEnter.length && input.length && send.length) {
+        let rnd = getRndInteger(0, 2);
+        switch(rnd) {
+          case 0:
+            input.val(`欢迎${lastMsgName.text()}驾临直播间`);
+            break;
+          case 1:
+            input.val(`老板${lastMsgName.text()}好久不见`);
+        }
+        send.trigger('change');
+        send.click();
+      }
+    }
   }
-  verify.click();
-
-  let card;
-  while (!card) {
-    await sleep(200);
-    card = $('*[placeholder="请填写12位北京社保卡条码号"]');
-  }
-  card.val('110842486009');
-
-  let sms;
-  while (!sms) {
-    await sleep(200);
-    sms = $('*[placeholder="请输入短信验证码"]');
-  }
-
-  let smsLength = 0;
-  while (smsLength !== 6) {
-    await sleep(200);
-    smsLength = sms.val().length;
-  }
-
-  let confirm;
-  while (!confirm) {
-    await sleep(200);
-    confirm = $('div.v-button:contains("确认挂号")');
-  }
-  confirm.click();
-  console.log(confirm);
 }
